@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reset</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f8f5f2;
+            color: #292625;
+        }
+
+        .app {
+            min-height: 100vh;
+            padding: 32px 22px;
+        }
+
+        .greeting {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .date {
+            color: #8b8582;
+            margin-bottom: 28px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 22px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-text {
+            color: #77716e;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="app">
+
+        <h1 class="greeting" id="greeting">привет</h1>
+
+        <p class="date" id="date"></p>
+
+        <section class="card">
+            <div class="card-title">погода</div>
+            <div class="card-text">
+                скоро здесь появится прогноз погоды
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-title">факт дня</div>
+            <div class="card-text">
+                сегодня reset только начинает работать.
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const hour = new Date().getHours();
+
+        let greeting;
+
+        if (hour >= 5 && hour < 12) {
+            greeting = "доброе утро";
+        } else if (hour >= 12 && hour < 18) {
+            greeting = "добрый день";
+        } else if (hour >= 18 && hour < 24) {
+            greeting = "добрый вечер";
+        } else {
+            greeting = "ты чего не спишь?";
+        }
+
+        document.getElementById("greeting").textContent = greeting;
+
+        const today = new Date();
+
+        const date = today.toLocaleDateString("ru-RU", {
+            weekday: "long",
+            day: "numeric",
+            month: "long"
+        });
+
+        document.getElementById("date").textContent = date;
+    </script>
+
+</body>
+</html>
