@@ -1,112 +1,933 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>reset</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>reset</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        body {
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-            background: #f8f5f2;
-            color: #292625;
-        }
+:root {
+    --bg: #faf6f7;
+    --card: rgba(255,255,255,.78);
+    --white: #ffffff;
+    --pink: #e9aebf;
+    --pink-dark: #c9829a;
+    --pink-soft: #f4dce3;
+    --text: #302b2e;
+    --muted: #91888d;
+    --border: rgba(70,45,55,.08);
+    --shadow: 0 12px 40px rgba(130,85,100,.08);
+}
 
-        .app {
-            min-height: 100vh;
-            padding: 32px 22px;
-        }
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(244,205,218,.55), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(230,213,238,.45), transparent 30%),
+        var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
 
-        .greeting {
-            font-size: 30px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+button,
+input {
+    font: inherit;
+}
 
-        .date {
-            color: #8b8582;
-            margin-bottom: 28px;
-        }
+button {
+    border: 0;
+    cursor: pointer;
+}
 
-        .card {
-            background: white;
-            border-radius: 24px;
-            padding: 22px;
-            margin-bottom: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
-        }
+.app {
+    width: 100%;
+    max-width: 600px;
+    min-height: 100vh;
+    margin: auto;
+    padding: 22px 18px 110px;
+}
 
-        .card-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+/* ---------- intro ---------- */
 
-        .card-text {
-            color: #77716e;
-            line-height: 1.5;
-        }
-    </style>
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #fbf7f8;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.intro.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.intro-content {
+    width: min(90%, 480px);
+}
+
+.logo {
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: -4px;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: logoIn 1.2s ease forwards;
+}
+
+.intro-sub {
+    margin-top: 22px;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #665d61;
+    opacity: 0;
+    animation: fadeIn .9s ease 1s forwards;
+}
+
+.intro button {
+    margin-top: 34px;
+    opacity: 0;
+    animation: fadeIn .9s ease 1.5s forwards;
+}
+
+@keyframes logoIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ---------- onboarding ---------- */
+
+.onboarding {
+    display: none;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.onboarding.active {
+    display: flex;
+}
+
+.onboard-box {
+    width: 100%;
+    max-width: 500px;
+}
+
+.step {
+    display: none;
+    animation: stepIn .45s ease;
+}
+
+.step.active {
+    display: block;
+}
+
+@keyframes stepIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.progress {
+    width: 100%;
+    height: 4px;
+    background: #eadfe2;
+    border-radius: 10px;
+    margin-bottom: 34px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 20%;
+    background: var(--pink-dark);
+    transition: width .35s ease;
+}
+
+.step-number {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+.step h1 {
+    font-size: 31px;
+    line-height: 1.15;
+    letter-spacing: -.8px;
+    margin-bottom: 12px;
+}
+
+.step p {
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 24px;
+}
+
+.input {
+    width: 100%;
+    padding: 17px 18px;
+    border-radius: 17px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.9);
+    outline: none;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    margin-bottom: 12px;
+}
+
+.input:focus {
+    border-color: rgba(201,130,154,.5);
+}
+
+.primary {
+    width: 100%;
+    padding: 17px;
+    margin-top: 12px;
+    border-radius: 17px;
+    background: var(--text);
+    color: white;
+    font-weight: 600;
+    transition: transform .2s ease, opacity .2s ease;
+}
+
+.primary:active {
+    transform: scale(.98);
+}
+
+.secondary {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 17px;
+    background: transparent;
+    color: var(--muted);
+}
+
+.goal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-height: 430px;
+    overflow-y: auto;
+    padding: 2px;
+}
+
+.goal {
+    padding: 15px 12px;
+    border-radius: 17px;
+    background: white;
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-align: left;
+    transition: .2s ease;
+}
+
+.goal.selected {
+    background: var(--pink-soft);
+    border-color: var(--pink);
+}
+
+.goal-title {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.goal-description {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.custom-goal-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.custom-goal-row .input {
+    margin: 0;
+}
+
+.add-goal {
+    width: 54px;
+    border-radius: 16px;
+    background: var(--pink-soft);
+    color: var(--pink-dark);
+    font-size: 22px;
+}
+
+.selected-list {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* ---------- main ---------- */
+
+.main {
+    display: none;
+}
+
+.main.active {
+    display: block;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.brand {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.day-counter {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.greeting {
+    font-size: 31px;
+    font-weight: 700;
+    letter-spacing: -.8px;
+}
+
+.date {
+    color: var(--muted);
+    margin-top: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.card {
+    background: var(--card);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+}
+
+.card-label {
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.weather-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.temperature {
+    font-size: 43px;
+    font-weight: 600;
+    letter-spacing: -2px;
+}
+
+.weather-info {
+    text-align: right;
+}
+
+.weather-city {
+    font-weight: 600;
+}
+
+.weather-description {
+    color: var(--muted);
+    margin-top: 4px;
+    font-size: 13px;
+}
+
+.time {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+.fact {
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.fact-source {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.section-title {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 27px 0 12px;
+}
+
+.task {
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+    padding: 16px;
+    background: white;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    margin-bottom: 9px;
+    transition: .25s ease;
+}
+
+.task.done {
+    opacity: .58;
+}
+
+.task-check {
+    width: 23px;
+    height: 23px;
+    min-width: 23px;
+    border-radius: 50%;
+    border: 1.5px solid #c8b9be;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 13px;
+}
+
+.task.done .task-check {
+    background: var(--pink-dark);
+    border-color: var(--pink-dark);
+}
+
+.task-text {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.task-goal {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.streak {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.streak-number {
+    font-size: 38px;
+    font-weight: 700;
+}
+
+.streak-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.streak-fire {
+    font-size: 31px;
+}
+
+.extra-add {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.extra-add input {
+    flex: 1;
+    padding: 13px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: white;
+    outline: none;
+}
+
+.extra-add button {
+    width: 48px;
+    border-radius: 14px;
+    background: var(--text);
+    color: white;
+}
+
+/* ---------- bottom navigation ---------- */
+
+.nav {
+    position: fixed;
+    left: 50%;
+    bottom: 13px;
+    transform: translateX(-50%);
+    width: min(calc(100% - 28px), 560px);
+    padding: 9px;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 21px;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 10px 35px rgba(80,50,60,.12);
+}
+
+.nav button {
+    background: transparent;
+    color: var(--muted);
+    padding: 10px 18px;
+    border-radius: 13px;
+    font-size: 12px;
+}
+
+.nav button.active {
+    background: var(--pink-soft);
+    color: var(--text);
+}
+
+/* ---------- loading ---------- */
+
+.loading {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: #fbf7f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .5s ease;
+}
+
+.loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-logo {
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -2px;
+}
+
+.loading-line {
+    width: 100px;
+    height: 3px;
+    margin-top: 18px;
+    background: #eadfe2;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.loading-line::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 40%;
+    background: var(--pink-dark);
+    animation: loading 1s infinite ease-in-out;
+}
+
+@keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(280%); }
+}
+
+.error {
+    color: #b05c70;
+    font-size: 13px;
+    margin-top: 8px;
+}
+</style>
 </head>
 
 <body>
 
-    <main class="app">
+<!-- loading -->
+<div class="loading" id="loading">
+    <div class="loading-logo">reset</div>
+    <div class="loading-line"></div>
+</div>
 
-        <h1 class="greeting" id="greeting">привет</h1>
+<!-- first launch -->
+<div class="intro" id="intro">
+    <div class="intro-content">
+        <div class="logo">reset</div>
 
-        <p class="date" id="date"></p>
+        <div class="intro-sub">
+            подростки слишком много времени проводят в телефонах..<br>
+            мы поможем это исправить.
+        </div>
 
-        <section class="card">
-            <div class="card-title">погода</div>
-            <div class="card-text">
-                скоро здесь появится прогноз погоды
+        <button class="primary" id="startBtn">
+            начать
+        </button>
+    </div>
+</div>
+
+<!-- onboarding -->
+<section class="onboarding" id="onboarding">
+    <div class="onboard-box">
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- step 1 -->
+        <div class="step active" data-step="1">
+            <div class="step-number">01 / 04</div>
+            <h1>как тебя называть?</h1>
+            <p>
+                можно настоящее имя, никнейм или любое имя,
+                которое тебе нравится.
+            </p>
+
+            <input
+                class="input"
+                id="nickname"
+                placeholder="например, ксюша"
+                maxlength="30"
+            >
+
+            <button class="primary" onclick="nextStep()">
+                продолжить
+            </button>
+        </div>
+
+        <!-- step 2 -->
+        <div class="step" data-step="2">
+            <div class="step-number">02 / 04</div>
+            <h1>где ты сейчас живёшь?</h1>
+
+            <p>
+                укажи реальный город и страну.
+                это нужно не для отслеживания тебя — от этого
+                зависят погода, местное время и некоторые рекомендации
+                внутри reset.
+            </p>
+
+            <input
+                class="input"
+                id="city"
+                placeholder="город"
+                maxlength="50"
+            >
+
+            <input
+                class="input"
+                id="country"
+                placeholder="страна"
+                maxlength="50"
+            >
+
+            <div class="error" id="locationError"></div>
+
+            <button class="primary" onclick="findLocation()">
+                продолжить
+            </button>
+        </div>
+
+        <!-- step 3 -->
+        <div class="step" data-step="3">
+            <div class="step-number">03 / 04</div>
+            <h1>зачем ты пришёл в reset?</h1>
+
+            <p>
+                выбери столько целей, сколько действительно хочешь
+                улучшить. ограничений нет.
+            </p>
+
+            <div class="goal-grid" id="goalGrid"></div>
+
+            <div class="custom-goal-row">
+                <input
+                    class="input"
+                    id="customGoal"
+                    placeholder="своя цель..."
+                >
+                <button class="add-goal" onclick="addCustomGoal()">+</button>
             </div>
-        </section>
 
-        <section class="card">
-            <div class="card-title">факт дня</div>
-            <div class="card-text">
-                сегодня reset только начинает работать.
+            <div class="selected-list" id="selectedList">
+                пока ничего не выбрано
             </div>
-        </section>
 
-    </main>
+            <button class="primary" onclick="finishOnboarding()">
+                создать мой reset
+            </button>
+        </div>
 
-    <script>
-        const hour = new Date().getHours();
+        <!-- step 4 -->
+        <div class="step" data-step="4">
+            <div class="step-number">04 / 04</div>
+            <h1>почти готово.</h1>
 
-        let greeting;
+            <p>
+                reset будет постепенно подстраиваться под тебя.
+                сначала задания будут лёгкими, а затем становиться
+                серьёзнее. тебе не нужно менять всю жизнь за один день.
+            </p>
 
-        if (hour >= 5 && hour < 12) {
-            greeting = "доброе утро";
-        } else if (hour >= 12 && hour < 18) {
-            greeting = "добрый день";
-        } else if (hour >= 18 && hour < 24) {
-            greeting = "добрый вечер";
-        } else {
-            greeting = "ты чего не спишь?";
-        }
+            <button class="primary" onclick="finishOnboarding(true)">
+                войти в reset
+            </button>
+        </div>
 
-        document.getElementById("greeting").textContent = greeting;
+    </div>
+</section>
 
-        const today = new Date();
+<!-- main app -->
+<main class="main" id="main">
+    <div class="app">
 
-        const date = today.toLocaleDateString("ru-RU", {
-            weekday: "long",
-            day: "numeric",
-            month: "long"
-        });
+        <div class="top">
+            <div class="brand">reset</div>
+            <div class="day-counter" id="dayCounter"></div>
+        </div>
 
-        document.getElementById("date").textContent = date;
-    </script>
+        <div class="greeting" id="greeting"></div>
+        <div class="date" id="date"></div>
 
-</body>
-</html>
+        <!-- weather -->
+        <div class="card">
+            <div class="card-label">сейчас</div>
+
+            <div class="weather-main">
+                <div>
+                    <div class="temperature" id="temperature">—°</div>
+                    <div class="weather-description" id="weatherDescription">
+                        загружаем погоду..
+                    </div>
+                </div>
+
+                <div class="weather-info">
+                    <div class="weather-city" id="weatherCity"></div>
+                    <div class="weather-description">
+                        местное время
+                    </div>
+                    <div class="time" id="localTime">--:--</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- fact -->
+        <div class="card">
+            <div class="card-label">факт дня</div>
+
+            <div class="fact" id="fact"></div>
+
+            <div class="fact-source">
+                curated facts · reset
+            </div>
+        </div>
+
+        <!-- streak -->
+        <div class="card">
+            <div class="card-label">твой прогресс</div>
+
+            <div class="streak">
+                <div>
+                    <div class="streak-number" id="streakNumber">0</div>
+                    <div class="streak-label">дней подряд</div>
+                </div>
+
+                <div class="streak-fire">✦</div>
+            </div>
+        </div>
+
+        <!-- tasks -->
+        <div class="section-title">
+            задания на сегодня
+        </div>
+
+        <div id="tasks"></div>
+
+        <!-- extra tasks -->
+        <div class="section-title">
+            свои задания
+        </div>
+
+        <div id="extraTasks"></div>
+
+        <div class="extra-add">
+            <input
+                id="extraInput"
+                placeholder="добавить своё задание"
+                maxlength="100"
+            >
+            <button onclick="addExtraTask()">+</button>
+        </div>
+
+    </div>
+</main>
+
+<!-- nav -->
+<nav class="nav" id="nav" style="display:none">
+    <button class="active">главная</button>
+    <button onclick="showProfile()">профиль</button>
+</nav>
+
+
+<script>
+/* =========================================================
+   RESET
+   ========================================================= */
+
+const STORAGE_KEY = "reset_user_v1";
+
+/* ---------- goals ---------- */
+
+const GOALS = [
+    {
+        id: "sleep",
+        title: "улучшить сон",
+        description: "режим и восстановление"
+    },
+    {
+        id: "study",
+        title: "улучшить оценки",
+        description: "учёба и концентрация"
+    },
+    {
+        id: "phone",
+        title: "меньше телефона",
+        description: "контроль экранного времени"
+    },
+    {
+        id: "friends",
+        title: "найти новых друзей",
+        description: "общение и социализация"
+    },
+    {
+        id: "sport",
+        title: "больше двигаться",
+        description: "активность и спорт"
+    },
+    {
+        id: "nutrition",
+        title: "питание",
+        description: "более осознанный рацион"
+    },
+    {
+        id: "finance",
+        title: "финансы",
+        description: "деньги и накопления"
+    },
+    {
+        id: "english",
+        title: "английский",
+        description: "язык каждый день"
+    },
+    {
+        id: "confidence",
+        title: "уверенность",
+        description: "самооценка и границы"
+    },
+    {
+        id: "productivity",
+        title: "продуктивность",
+        description: "меньше прокрастинации"
+    },
+    {
+        id: "reading",
+        title: "больше читать",
+        description: "книги и знания"
+    },
+    {
+        id: "creativity",
+        title: "творчество",
+        description: "идеи и новые навыки"
+    }
+];
+
+/* ---------- facts ----------
+   не random.
+   факт выбирается по дню года, поэтому пользователь
+   получает стабильный факт дня.
+*/
+
+const FACTS = [
+    "человеческий мозг использует примерно столько же энергии в состоянии покоя, сколько и во время обычной активности.",
+    "осьминоги имеют три сердца.",
+    "мёд при правильном хранении может сохраняться очень долго благодаря своей химической структуре.",
+    "бананы с ботанической точки зрения являются ягодами.",
+    "у людей отпечатки пальцев формируются ещё до рождения.",
+    "вода может одновременно существовать в трёх состояниях при определённых условиях температуры и давления.",
+    "сердце человека сокращается десятки миллионов раз в год.",
+    "наша память не является точной записью событий: при воспоминании мозг каждый раз частично реконструирует их.",
+    "свет от солнца достигает земли примерно за восемь минут.",
+    "у жирафов столько же шейных позвонков, сколько у человека — семь.",
+    "мозг способен адаптироваться к новым навыкам благодаря нейропластичности.",
+    "у некоторых видов бамбука рост может достигать нескольких десятков сантиметров за сутки.",
+    "земля не является идеальным шаром: она немного сплюснута у полюсов.",
+    "человеческий организм содержит триллионы клеток.",
+    "на венере сутки длиннее её года.",
+    "акулы существовали на земле раньше появления первых деревьев.",
+    "звук не распространяется в вакууме, потому что ему нужна среда для передачи колебаний.",
+    "человеческое тело постоянно заменяет старые клетки новыми.",
+    "вороны способны использовать предметы как инструменты.",
+    "мозг продолжает обрабатывать некоторые виды информации даже во время сна."
+];
+
+/* ---------- task templates ---------- */
+
+const TASKS = {
+    sleep: [
+        "сегодня постарайся лечь спать на 20 минут раньше обычного.",
+        "за час до сна убери телефон подальше от кровати.",
+        "сегодня соблюди примерно одинаковое время отхода ко сну.",
+        "перед сном 10 минут проведи без экрана.",
+        "составь короткий план сна на ближайшие три дня."
+    ],
+
+    study: [
+        "сделай одну учебную задачу, которую обычно откладываешь.",
+        "20 минут занимайся одним предметом без телефона.",
+        "повтори одну тему, которую недавно проходил.",
+        "разбери одну свою ошибку из прошлой работы.",
+        "сделай 30 минут глубокой учёбы без переключений."
+    ],
+
+    phone: [
+        "оставь телефон в стороне на 20 минут.",
+        "не бери телефон первые 15 минут после пробуждения.",
+        "сделай один приём пищи без телефона.",
+        "отключи одно ненужное уведомление.",
+        "проведи сегодня один час без развлекательных приложений."
+    ],
+
+    friends: [
+        "напиши человеку, с которым давно не общался.",
+        "сделай искренний комплимент кому-нибудь.",
+        "начни короткий разгово
