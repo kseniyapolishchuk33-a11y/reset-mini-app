@@ -1,754 +1,890 @@
-<!doctype html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7e7eb">
-<title>reset</title>
-
-<style>
-*{box-sizing:border-box}
-:root{
-  --pink:#f4dce3;
-  --pink2:#f9edf0;
-  --rose:#b86d7d;
-  --burg:#702f3d;
-  --beige:#eee4d6;
-  --cream:#faf7f3;
-  --black:#171516;
-  --gray:#858080;
-  --white:#fff;
-  --radius:24px;
-}
-body{
-  margin:0;
-  background:linear-gradient(160deg,#fff,#f9eef1 55%,#eee4d6);
-  color:var(--black);
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  min-height:100vh;
-}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.app{max-width:720px;margin:auto;min-height:100vh;padding-bottom:90px}
-.hidden{display:none!important}
-
-.splash{
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(145deg,#fff,#f4dce3);
-  animation:fadeOut 1s ease 2.4s forwards;
-}
-.splash-logo{
-  font-size:64px;
-  letter-spacing:10px;
-  font-weight:800;
-  animation:logoIn 1.4s ease;
-}
-@keyframes logoIn{
-  from{opacity:0;transform:translateY(20px) scale(.92)}
-  to{opacity:1;transform:none}
-}
-@keyframes fadeOut{
-  to{opacity:0;visibility:hidden;pointer-events:none}
-}
-
-.onboarding{
-  min-height:100vh;
-  padding:55px 24px;
-  display:flex;
-  align-items:center;
-}
-.ob-card{
-  width:100%;
-  background:rgba(255,255,255,.72);
-  backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.8);
-  border-radius:32px;
-  padding:30px;
-  box-shadow:0 20px 60px rgba(112,47,61,.12);
-}
-.logo{font-size:34px;font-weight:800;letter-spacing:6px}
-.ob-title{font-size:29px;line-height:1.15;margin:22px 0 12px}
-.ob-text{color:#686264;line-height:1.55}
-.btn{
-  border:0;
-  border-radius:18px;
-  padding:15px 19px;
-  background:var(--black);
-  color:white;
-  width:100%;
-  margin-top:18px;
-}
-.btn.pink{background:var(--burg)}
-.btn.light{background:var(--pink2);color:var(--black)}
-.field{margin-top:16px}
-.field label{display:block;font-size:13px;color:var(--gray);margin-bottom:7px}
-.field input,.field textarea,.field select{
-  width:100%;
-  border:1px solid #eadde0;
-  background:#fff;
-  border-radius:16px;
-  padding:14px;
-  outline:none;
-}
-textarea{min-height:100px;resize:vertical}
-.goal-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:15px;
-}
-.goal{
-  padding:13px;
-  border:1px solid #eadde0;
-  background:white;
-  border-radius:15px;
-  text-align:left;
-}
-.goal.active{background:var(--pink);border-color:var(--rose)}
-
-header{
-  padding:24px 20px 10px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.header-logo{font-weight:800;letter-spacing:5px}
-.avatar{
-  width:42px;height:42px;border-radius:50%;
-  background:var(--burg);color:white;
-  display:flex;align-items:center;justify-content:center;
-  font-weight:700;
-}
-.page{padding:10px 18px}
-.greeting{font-size:29px;font-weight:700}
-.sub{color:var(--gray);margin-top:5px}
-.weather{
-  margin-top:18px;
-  background:linear-gradient(135deg,#fff,#f8e7eb);
-  border-radius:26px;padding:20px;
-}
-.weather-top{display:flex;justify-content:space-between}
-.temp{font-size:42px;font-weight:700}
-.weather-city{font-weight:600}
-.card{
-  background:rgba(255,255,255,.78);
-  border:1px solid rgba(255,255,255,.8);
-  border-radius:24px;
-  padding:18px;
-  margin-top:14px;
-  box-shadow:0 10px 35px rgba(70,40,50,.06);
-}
-.card-title{font-weight:700;font-size:18px}
-.row{display:flex;gap:10px;align-items:center}
-.between{justify-content:space-between}
-.small{font-size:13px;color:var(--gray)}
-.stat{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:12px;
-}
-.stat>div{
-  background:#faf5f2;
-  border-radius:17px;
-  padding:14px 8px;
-  text-align:center;
-}
-.stat b{display:block;font-size:22px}
-.nav{
-  position:fixed;
-  z-index:20;
-  bottom:0;
-  left:0;
-  right:0;
-  margin:auto;
-  max-width:720px;
-  padding:10px 10px calc(10px + env(safe-area-inset-bottom));
-  background:rgba(255,255,255,.9);
-  backdrop-filter:blur(20px);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  border-top:1px solid #eee;
-}
-.nav button{
-  border:0;background:none;color:#777;padding:8px 2px;font-size:11px;
-}
-.nav button.active{color:var(--burg);font-weight:700}
-.icon{font-size:20px;display:block;margin-bottom:3px}
-.task{
-  display:flex;gap:12px;align-items:flex-start;
-  padding:13px 0;border-bottom:1px solid #eee;
-}
-.check{
-  width:25px;height:25px;border-radius:9px;
-  border:1px solid #cbb9bd;
-  background:white;flex:none;
-}
-.check.done{background:var(--burg);border-color:var(--burg)}
-.check.done:after{content:"✓";color:#fff;display:block;text-align:center}
-.fire{
-  font-size:25px;
-}
-.progress{
-  height:9px;background:#eee2e5;border-radius:20px;overflow:hidden;margin-top:12px;
-}
-.progress i{display:block;height:100%;background:var(--burg);border-radius:20px}
-.tabs{display:flex;gap:7px;overflow:auto;margin:12px 0}
-.tabs button{
-  white-space:nowrap;border:0;border-radius:14px;
-  background:#eee8e5;padding:10px 13px;
-}
-.tabs button.active{background:var(--burg);color:white}
-.list-item{
-  padding:14px 0;border-bottom:1px solid #eee;
-}
-.mood-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
-.mood{
-  border:1px solid #eee;background:#fff;border-radius:16px;padding:11px 2px;
-}
-.mood.active{background:var(--pink);border-color:var(--rose)}
-.calendar{
-  display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:12px;
-}
-.day{
-  min-height:44px;border:0;background:#faf7f3;border-radius:11px;
-}
-.day.today{background:var(--burg);color:#fff}
-.foodrow,.moneyrow{
-  display:flex;gap:7px;margin-top:8px;
-}
-.foodrow input,.moneyrow input{min-width:0}
-.delete{
-  border:0;background:#f3e8e8;color:#8b4c58;border-radius:10px;
-}
-.feature-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:10px;
-}
-.feature{
-  min-height:110px;text-align:left;border:0;border-radius:22px;
-  padding:17px;background:#fff;
-}
-.feature strong{display:block;font-size:17px;margin-bottom:7px}
-.timer{
-  text-align:center;font-size:52px;font-weight:700;padding:25px 0;
-}
-.post{
-  overflow:hidden;border-radius:22px;background:#fff;margin-top:15px;
-}
-.post img{width:100%;display:block;max-height:500px;object-fit:cover}
-.post-body{padding:14px}
-.modal{
-  position:fixed;inset:0;background:rgba(20,15,17,.35);
-  z-index:100;display:flex;align-items:flex-end;justify-content:center;
-}
-.modal-inner{
-  width:min(720px,100%);
-  max-height:90vh;overflow:auto;
-  background:#fff;border-radius:30px 30px 0 0;padding:22px;
-}
-.close{float:right;border:0;background:#f3eeee;border-radius:50%;width:35px;height:35px}
-.chat{
-  height:430px;overflow:auto;background:#faf7f5;border-radius:20px;padding:12px;
-}
-.msg{
-  max-width:85%;padding:11px 14px;border-radius:17px;margin:7px 0;
-}
-.msg.user{margin-left:auto;background:var(--burg);color:#fff}
-.msg.ai{background:#fff}
-.chatbar{display:flex;gap:7px;margin-top:8px}
-.chatbar input{flex:1}
-.empty{padding:25px;text-align:center;color:#888}
-</style>
-</head>
-
-<body>
-
-<div class="splash">
-  <div class="splash-logo">reset</div>
-</div>
-
-<div id="app"></div>
-
-<script>
-"use strict";
-
-/* =========================
-   RESET — ONE FILE VERSION
-   ========================= */
-
-const KEY="reset_app_v1";
-
-let db=JSON.parse(localStorage.getItem(KEY)||"null");
-
-if(!db){
-  db={
-    registered:false,
-    user:{
-      nickname:"",
-      city:"",
-      country:"",
-      goals:[]
-    },
-    streak:0,
-    lastTaskDate:"",
-    tasks:[],
-    completedTasks:[],
-    calories:[],
-    money:[],
-    diary:[],
-    moods:[],
-    planner:[],
-    sleep:[],
-    school:{
-      subjects:[],
-      sessions:[],
-      notes:""
-    },
-    favourites:[],
-    posts:[],
-    profile:{
-      bio:"",
-      avatar:""
-    },
-    settings:{
-      diaryPin:""
-    }
-  };
-}
-
-function save(){
-  localStorage.setItem(KEY,JSON.stringify(db));
-}
-
-function esc(s){
-  return String(s??"")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;");
-}
-
-function today(){
-  return new Date().toISOString().slice(0,10);
-}
-
-function timeNow(){
-  return new Date().toLocaleTimeString([],{
-    hour:"2-digit",
-    minute:"2-digit"
-  });
-}
-
-function greeting(){
-  const h=new Date().getHours();
-  if(h>=5&&h<12)return "доброе утро";
-  if(h>=12&&h<18)return "добрый день";
-  if(h>=18&&h<24)return "добрый вечер";
-  return "ты чего не спишь?";
-}
-
-function navigate(page){
-  location.hash=page;
-  render();
-  window.scrollTo(0,0);
-}
-
-function modal(html){
-  document.body.insertAdjacentHTML("beforeend",
-    `<div class="modal" id="modal">
-      <div class="modal-inner">
-        <button class="close" onclick="closeModal()">×</button>
-        ${html}
-      </div>
-    </div>`
-  );
-}
-
-function closeModal(){
-  document.getElementById("modal")?.remove();
-}
-
-/* =========================
-   ONBOARDING
-   ========================= */
-
-let obStep=0;
-let ob={
-  nickname:"",
-  city:"",
-  country:"",
-  goals:[]
-};
-
-const goals=[
-  "улучшить оценки",
-  "уменьшить время за телефоном",
-  "улучшить сон",
-  "заняться спортом",
-  "улучшить питание",
-  "научиться экономить",
-  "улучшить английский",
-  "найти новых друзей",
-  "стать продуктивнее",
-  "ухаживать за собой",
-  "меньше откладывать дела",
-  "свой вариант"
-];
-
-function onboarding(){
-  const a=document.getElementById("app");
-
-  if(obStep===0){
-    a.innerHTML=`
-      <div class="onboarding">
-        <div class="ob-card">
-          <div class="logo">reset</div>
-          <div class="ob-title">
-            подростки слишком много времени проводят в телефонах..
-            мы поможем это исправить.
-          </div>
-          <div class="ob-text">
-            reset помогает организовать учёбу, сон, спорт, финансы,
-            питание, привычки и свободное время в одном месте.
-          </div>
-          <button class="btn pink" onclick="obStep=1;onboarding()">начать</button>
-        </div>
-      </div>`;
-    return;
-  }
-
-  if(obStep===1){
-    a.innerHTML=`
-      <div class="onboarding">
-       <div class="ob-card">
-        <div class="small">1 / 3</div>
-        <div class="ob-title">как тебя называть?</div>
-        <div class="ob-text">можно настоящее имя, а можно придуманный никнейм.</div>
-        <div class="field">
-          <input id="obNick" placeholder="например, gabi" value="${esc(ob.nickname)}">
-        </div>
-        <button class="btn pink" onclick="nextNick()">продолжить</button>
-       </div>
-      </div>`;
-    return;
-  }
-
-  if(obStep===2){
-    a.innerHTML=`
-      <div class="onboarding">
-       <div class="ob-card">
-        <div class="small">2 / 3</div>
-        <div class="ob-title">где ты живёшь?</div>
-        <div class="ob-text">
-          укажи настоящий город и страну. это нужно не для публикации
-          адреса, а для времени, погоды и некоторых рекомендаций.
-        </div>
-        <div class="field">
-          <input id="obCity" placeholder="город" value="${esc(ob.city)}">
-        </div>
-        <div class="field">
-          <input id="obCountry" placeholder="страна" value="${esc(ob.country)}">
-        </div>
-        <button class="btn pink" onclick="nextPlace()">продолжить</button>
-       </div>
-      </div>`;
-    return;
-  }
-
-  a.innerHTML=`
-    <div class="onboarding">
-     <div class="ob-card">
-      <div class="small">3 / 3</div>
-      <div class="ob-title">что ты хочешь изменить?</div>
-      <div class="ob-text">можно выбрать сколько угодно целей и добавить свою.</div>
-      <div class="goal-grid">
-       ${goals.map((g,i)=>`
-        <button class="goal ${ob.goals.includes(g)?"active":""}"
-          onclick="toggleObGoal(${i})">${esc(g)}</button>
-       `).join("")}
-      </div>
-      <button class="btn pink" onclick="finishOnboarding()">войти в reset</button>
-     </div>
-    </div>`;
-}
-
-function nextNick(){
-  const v=document.getElementById("obNick").value.trim();
-  if(!v)return alert("введи никнейм");
-  ob.nickname=v;
-  obStep=2;
-  onboarding();
-}
-
-function nextPlace(){
-  const city=document.getElementById("obCity").value.trim();
-  const country=document.getElementById("obCountry").value.trim();
-  if(!city||!country)return alert("нужно указать город и страну");
-  ob.city=city;
-  ob.country=country;
-  obStep=3;
-  onboarding();
-}
-
-function toggleObGoal(i){
-  const g=goals[i];
-  if(g==="свой вариант"){
-    const x=prompt("напиши свою цель");
-    if(x?.trim())ob.goals.push(x.trim());
-  }else{
-    if(ob.goals.includes(g))
-      ob.goals=ob.goals.filter(x=>x!==g);
-    else ob.goals.push(g);
-  }
-  onboarding();
-}
-
-function finishOnboarding(){
-  if(!ob.goals.length)return alert("выбери хотя бы одну цель");
-
-  db.registered=true;
-  db.user={
-    nickname:ob.nickname,
-    city:ob.city,
-    country:ob.country,
-    goals:ob.goals
-  };
-
-  generateTasks();
-  save();
-  navigate("home");
-}
-
-/* =========================
-   TASKS
-   ========================= */
-
-function generateTasks(){
-  const base=db.user.goals||[];
-  const map={
-    "улучшить оценки":"25 минут уделить самому сложному предмету",
-    "уменьшить время за телефоном":"отложить телефон на 30 минут и заняться чем-нибудь офлайн",
-    "улучшить сон":"сегодня лечь спать на 20 минут раньше обычного",
-    "заняться спортом":"сделать 15 минут лёгкой физической активности",
-    "улучшить питание":"добавить сегодня овощи или фрукты к одному приёму пищи",
-    "научиться экономить":"записать все сегодняшние расходы",
-    "улучшить английский":"выучить 5 новых английских слов",
-    "найти новых друзей":"написать или поговорить сегодня с кем-нибудь новым",
-    "стать продуктивнее":"сделать одну задачу, которую давно откладываешь",
-    "ухаживать за собой":"сделать свою вечернюю рутину ухода",
-    "меньше откладывать дела":"потратить 10 минут на дело, которое постоянно откладываешь"
-  };
-
-  db.tasks=base.slice(0,3).map((g,i)=>({
-    id:Date.now()+i,
-    text:map[g]||`сделать небольшой шаг в направлении: ${g}`,
-    goal:g
-  }));
-
-  db.completedTasks=[];
-  save();
-}
-
-function checkNewDay(){
-  const d=today();
-  if(db.lastTaskDate!==d){
-    if(db.lastTaskDate){
-      const yesterday=new Date();
-      yesterday.setDate(yesterday.getDate()-1);
-      const y=yesterday.toISOString().slice(0,10);
-
-      if(db.lastTaskDate===y && db.completedTasks.length>0)
-        db.streak++;
-      else if(db.completedTasks.length===0)
-        db.streak=0;
-    }
-
-    db.lastTaskDate=d;
-    generateTasks();
-  }
-}
-
-/* =========================
-   WEATHER
-   ========================= */
-
-async function weather(){
-  const box=document.getElementById("weather");
-  if(!box)return;
-
-  box.innerHTML=`загружаем погоду..`;
-
-  try{
-    const q=encodeURIComponent(`${db.user.city}, ${db.user.country}`);
-    const g=await fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(db.user.city)}&count=1&language=ru&format=json`
-    ).then(r=>r.json());
-
-    if(!g.results?.length)throw Error();
-
-    const p=g.results[0];
-
-    const w=await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${p.latitude}&longitude=${p.longitude}&current=temperature_2m,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=auto`
-    ).then(r=>r.json());
-
-    const temp=Math.round(w.current.temperature_2m);
-    const max=Math.round(w.daily.temperature_2m_max[0]);
-    const min=Math.round(w.daily.temperature_2m_min[0]);
-
-    box.innerHTML=`
-      <div class="weather-top">
-       <div>
-        <div class="weather-city">${esc(db.user.city)}</div>
-        <div class="small">${esc(db.user.country)}</div>
-       </div>
-       <div class="temp">${temp}°</div>
-      </div>
-      <div class="small">сегодня ${min}° / ${max}° · ветер ${Math.round(w.current.wind_speed_10m)} км/ч</div>`;
-  }catch{
-    box.innerHTML=`не получилось получить погоду. проверь интернет и город.`;
-  }
-}
-
-/* =========================
-   HOME
-   ========================= */
-
-function home(){
-  checkNewDay();
-
-  return`
-  <header>
-    <div class="header-logo">reset</div>
-    <button class="avatar" onclick="navigate('profile')">
-      ${esc((db.user.nickname||"r")[0].toUpperCase())}
-    </button>
-  </header>
-
-  <main class="page">
-    <div class="greeting">${greeting()}, ${esc(db.user.nickname)}.</div>
-    <div class="sub">${new Date().toLocaleDateString("ru-RU",{weekday:"long",day:"numeric",month:"long"})}</div>
-
-    <div class="weather" id="weather">загружаем погоду..</div>
-
-    <div class="card">
-      <div class="row between">
-        <div>
-          <div class="card-title">твой огонёк</div>
-          <div class="small">ты в reset уже ${db.streak} ${plural(db.streak,"день","дня","дней")}</div>
-        </div>
-        <div class="fire">${db.streak>0?"🔥":"○"}</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="row between">
-        <div class="card-title">факт дня</div>
-        <div class="small">${today()}</div>
-      </div>
-      <p id="fact"></p>
-    </div>
-
-    <div class="card">
-      <div class="row between">
-       <div class="card-title">3 задания на сегодня</div>
-       <div class="small">${db.completedTasks.length}/3</div>
-      </div>
-
-      ${db.tasks.map(t=>{
-        const done=db.completedTasks.includes(t.id);
-        return`
-        <div class="task">
-          <button class="check ${done?"done":""}" onclick="completeTask(${t.id})"></button>
-          <div>
-            <div>${esc(t.text)}</div>
-            <div class="small">${esc(t.goal)}</div>
-          </div>
-        </div>`;
-      }).join("")}
-    </div>
-
-    <div class="card">
-      <div class="card-title">ещё 3 задачи на сегодня</div>
-      <div class="small">ты можешь добавить собственные задачи</div>
-      <button class="btn light" onclick="addTask()">добавить задачу</button>
-    </div>
-
-    <div class="card">
-      <div class="card-title">возможности reset</div>
-      <div class="feature-grid">
-        <button class="feature" onclick="navigate('health')"><strong>health</strong>питание и спорт</button>
-        <button class="feature" onclick="navigate('finance')"><strong>finance</strong>траты и статистика</button>
-        <button class="feature" onclick="navigate('diary')"><strong>diary</strong>дневник и настроение</button>
-        <button class="feature" onclick="navigate('school')"><strong>school</strong>учёба и таймер</button>
-        <button class="feature" onclick="navigate('sleep')"><strong>sleep</strong>сон и режим</button>
-        <button class="feature" onclick="navigate('foryou')"><strong>for you</strong>книги, музыка, кино</button>
-      </div>
-    </div>
-  </main>`;
-}
-
-const facts=[
-"осьминоги имеют три сердца.",
-"бананы — ботанически ягоды, а клубника — нет.",
-"у акул скелет состоит преимущественно из хряща.",
-"мёд при правильном хранении может сохраняться очень долго.",
-"сердце синего кита может весить сотни килограммов.",
-"на венере день длится дольше её года.",
-"человеческий мозг использует примерно пятую часть энергии организма.",
-"молния может нагревать воздух вокруг себя до температуры выше поверхности солнца.",
-"у жирафа столько же шейных позвонков, сколько у человека.",
-"пингвины умеют узнавать голос партнёра среди множества других."
-];
-
-function dailyFact(){
-  const n=Math.floor(
-    new Date().getTime()/86400000
-  )%facts.length;
-  return facts[n];
-}
-
-function plural(n,a,b,c){
-  n=Math.abs(n)%100;
-  if(n>=11&&n<=19)return c;
-  switch(n%10){
-    case 1:return a;
-    case 2:case 3:case 4:return b;
-    default:return c;
-  }
-}
-
-function completeTask(id){
-  if(!db.completedTasks.includes(id)){
-    db.completedTasks.push(id);
-    if(db.completedTasks.length===1 && db.lastTaskDate===today()){
-      db.streak=Math.max(1,db.streak);
-    }
-    save();
-  }
-  render();
-}
-
-function addTask(){
-  const text=prompt("какую задачу добавить?");
-  if(!text?.trim())return;
-  db.tasks.push({
-    id:Date.now(),
-    text:text.trim(),
-    goal:"твоя задача"
-  });
-  save();
-  render();
-}
-
-/* =========================
-   HEALTH / CALORIES
-   ========================= */
-
-function health(){
-  const total=db.calories.reduce((a,
+import asyncio
+import sqlite3
+from aiogram import Bot, Dispatcher, F
+from aiogram.filters import CommandStart
+from aiogram.types import (
+    Message,
+    CallbackQuery,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton
+)
+from aiogram.fsm.state import State, StatesGroup
+from aiogram.fsm.context import FSMContext
+from aiogram.fsm.storage.memory import MemoryStorage
+
+
+# =========================================================
+# НАСТРОЙКИ
+# =========================================================
+
+BOT_TOKEN = "ВСТАВЬ_СЮДА_ТОКЕН_БОТА"
+
+# username владельца БЕЗ @
+OWNER_USERNAME = "YOUR_USERNAME"
+
+# пароль администратора
+ADMIN_PASSWORD = "K7v!Q2m#R9x@L4p$Z8"
+
+
+# =========================================================
+# БАЗА ДАННЫХ
+# =========================================================
+
+db = sqlite3.connect("kitty_shop.db")
+cursor = db.cursor()
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT,
+    price_stars INTEGER DEFAULT 0,
+    price_uah INTEGER DEFAULT 0,
+    stock INTEGER DEFAULT 0,
+    photo_id TEXT NOT NULL
+)
+""")
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS admins (
+    user_id INTEGER PRIMARY KEY
+)
+""")
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS cart (
+    user_id INTEGER,
+    product_id INTEGER,
+    quantity INTEGER DEFAULT 1,
+    PRIMARY KEY (user_id, product_id)
+)
+""")
+
+db.commit()
+
+
+# =========================================================
+# BOT
+# =========================================================
+
+bot = Bot(BOT_TOKEN)
+dp = Dispatcher(storage=MemoryStorage())
+
+
+# =========================================================
+# СОСТОЯНИЯ АДМИНА
+# =========================================================
+
+class AdminLogin(StatesGroup):
+    waiting_password = State()
+
+
+class AddProduct(StatesGroup):
+    waiting_photo = State()
+    waiting_name = State()
+    waiting_description = State()
+    waiting_stars = State()
+    waiting_uah = State()
+    waiting_stock = State()
+
+
+class EditProduct(StatesGroup):
+    waiting_name = State()
+    waiting_description = State()
+    waiting_stars = State()
+    waiting_uah = State()
+    waiting_stock = State()
+
+
+# =========================================================
+# ПРОВЕРКА АДМИНА
+# =========================================================
+
+def is_admin(user_id: int):
+    cursor.execute(
+        "SELECT user_id FROM admins WHERE user_id = ?",
+        (user_id,)
+    )
+    return cursor.fetchone() is not None
+
+
+# =========================================================
+# ГЛАВНОЕ МЕНЮ
+# =========================================================
+
+def main_menu(user_id: int):
+
+    buttons = [
+        [
+            InlineKeyboardButton(
+                text="🛍 магазин",
+                callback_data="shop"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="🛒 моя корзина",
+                callback_data="cart"
+            )
+        ]
+    ]
+
+    if is_admin(user_id):
+        buttons.append([
+            InlineKeyboardButton(
+                text="⚙️ админ-панель",
+                callback_data="admin"
+            )
+        ])
+    else:
+        buttons.append([
+            InlineKeyboardButton(
+                text="🔐 я админ",
+                callback_data="admin_login"
+            )
+        ])
+
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
+
+
+# =========================================================
+# START
+# =========================================================
+
+@dp.message(CommandStart())
+async def start(message: Message):
+
+    text = (
+        "🎀 <b>kitty shop</b>\n\n"
+        "добро пожаловать в магазин.\n"
+        "здесь ты можешь посмотреть товары и добавить "
+        "понравившиеся в корзину.\n\n"
+        "выбери действие ниже:"
+    )
+
+    await message.answer(
+        text,
+        reply_markup=main_menu(message.from_user.id),
+        parse_mode="HTML"
+    )
+
+
+# =========================================================
+# МАГАЗИН
+# =========================================================
+
+@dp.callback_query(F.data == "shop")
+async def shop(callback: CallbackQuery):
+
+    cursor.execute("""
+        SELECT id, name, price_stars, price_uah, stock
+        FROM products
+        ORDER BY id DESC
+    """)
+
+    products = cursor.fetchall()
+
+    if not products:
+        await callback.message.edit_text(
+            "🛍 <b>kitty shop</b>\n\n"
+            "пока здесь нет товаров.",
+            reply_markup=InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [
+                        InlineKeyboardButton(
+                            text="◀️ назад",
+                            callback_data="home"
+                        )
+                    ]
+                ]
+            ),
+            parse_mode="HTML"
+        )
+        await callback.answer()
+        return
+
+    buttons = []
+
+    for product in products:
+
+        product_id = product[0]
+        name = product[1]
+        stock = product[4]
+
+        if stock > 0:
+            status = f" • {stock} шт."
+        else:
+            status = " • нет в наличии"
+
+        buttons.append([
+            InlineKeyboardButton(
+                text=f"{name}{status}",
+                callback_data=f"product:{product_id}"
+            )
+        ])
+
+    buttons.append([
+        InlineKeyboardButton(
+            text="🛒 моя корзина",
+            callback_data="cart"
+        )
+    ])
+
+    buttons.append([
+        InlineKeyboardButton(
+            text="◀️ назад",
+            callback_data="home"
+        )
+    ])
+
+    await callback.message.edit_text(
+        "🛍 <b>kitty shop</b>\n\n"
+        "выбери товар:",
+        reply_markup=InlineKeyboardMarkup(
+            inline_keyboard=buttons
+        ),
+        parse_mode="HTML"
+    )
+
+    await callback.answer()
+
+
+# =========================================================
+# КАРТОЧКА ТОВАРА
+# =========================================================
+
+@dp.callback_query(F.data.startswith("product:"))
+async def product_page(callback: CallbackQuery):
+
+    product_id = int(callback.data.split(":")[1])
+
+    cursor.execute("""
+        SELECT id, name, description,
+               price_stars, price_uah,
+               stock, photo_id
+        FROM products
+        WHERE id = ?
+    """, (product_id,))
+
+    product = cursor.fetchone()
+
+    if not product:
+        await callback.answer(
+            "товар не найден.",
+            show_alert=True
+        )
+        return
+
+    _, name, description, stars, uah, stock, photo_id = product
+
+    text = f"<b>{name}</b>\n\n"
+
+    if description:
+        text += f"{description}\n\n"
+
+    text += f"⭐ {stars} stars\n"
+    text += f"₴ {uah} грн\n\n"
+
+    if stock > 0:
+        text += f"📦 в наличии: {stock} шт."
+    else:
+        text += "❌ нет в наличии"
+
+    buttons = []
+
+    if stock > 0:
+        buttons.append([
+            InlineKeyboardButton(
+                text="🛒 добавить в корзину",
+                callback_data=f"addcart:{product_id}"
+            )
+        ])
+
+    buttons.append([
+        InlineKeyboardButton(
+            text="◀️ назад",
+            callback_data="shop"
+        )
+    ])
+
+    # удаляем старое сообщение
+    try:
+        await callback.message.delete()
+    except:
+        pass
+
+    await callback.message.answer_photo(
+        photo=photo_id,
+        caption=text,
+        reply_markup=InlineKeyboardMarkup(
+            inline_keyboard=buttons
+        ),
+        parse_mode="HTML"
+    )
+
+    await callback.answer()
+
+
+# =========================================================
+# ДОБАВЛЕНИЕ В КОРЗИНУ
+# =========================================================
+
+@dp.callback_query(F.data.startswith("addcart:"))
+async def add_to_cart(callback: CallbackQuery):
+
+    product_id = int(callback.data.split(":")[1])
+    user_id = callback.from_user.id
+
+    cursor.execute(
+        "SELECT stock FROM products WHERE id = ?",
+        (product_id,)
+    )
+
+    result = cursor.fetchone()
+
+    if not result or result[0] <= 0:
+        await callback.answer(
+            "этого товара сейчас нет в наличии.",
+            show_alert=True
+        )
+        return
+
+    cursor.execute("""
+        SELECT quantity
+        FROM cart
+        WHERE user_id = ? AND product_id = ?
+    """, (user_id, product_id))
+
+    existing = cursor.fetchone()
+
+    if existing:
+
+        new_quantity = existing[0] + 1
+
+        if new_quantity > result[0]:
+            await callback.answer(
+                "больше добавить нельзя — столько товара нет.",
+                show_alert=True
+            )
+            return
+
+        cursor.execute("""
+            UPDATE cart
+            SET quantity = ?
+            WHERE user_id = ? AND product_id = ?
+        """, (new_quantity, user_id, product_id))
+
+    else:
+
+        cursor.execute("""
+            INSERT INTO cart
+            (user_id, product_id, quantity)
+            VALUES (?, ?, 1)
+        """, (user_id, product_id))
+
+    db.commit()
+
+    await callback.answer(
+        "товар добавлен в корзину.",
+        show_alert=True
+    )
+
+
+# =========================================================
+# КОРЗИНА
+# =========================================================
+
+@dp.callback_query(F.data == "cart")
+async def show_cart(callback: CallbackQuery):
+
+    user_id = callback.from_user.id
+
+    cursor.execute("""
+        SELECT products.id,
+               products.name,
+               products.price_stars,
+               products.price_uah,
+               cart.quantity
+        FROM cart
+        JOIN products
+        ON products.id = cart.product_id
+        WHERE cart.user_id = ?
+    """, (user_id,))
+
+    items = cursor.fetchall()
+
+    if not items:
+
+        await callback.message.edit_text(
+            "🛒 <b>твоя корзина пуста.</b>",
+            reply_markup=InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [
+                        InlineKeyboardButton(
+                            text="🛍 магазин",
+                            callback_data="shop"
+                        )
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="◀️ назад",
+                            callback_data="home"
+                        )
+                    ]
+                ]
+            ),
+            parse_mode="HTML"
+        )
+
+        await callback.answer()
+        return
+
+    text = "🛒 <b>твоя корзина</b>\n\n"
+
+    total_stars = 0
+    total_uah = 0
+
+    for item in items:
+
+        product_id, name, stars, uah, quantity = item
+
+        text += (
+            f"• {name} × {quantity}\n"
+            f"  ⭐ {stars * quantity} | "
+            f"₴ {uah * quantity}\n\n"
+        )
+
+        total_stars += stars * quantity
+        total_uah += uah * quantity
+
+    text += (
+        f"<b>итого:</b>\n"
+        f"⭐ {total_stars} stars\n"
+        f"₴ {total_uah} грн"
+    )
+
+    buttons = [
+        [
+            InlineKeyboardButton(
+                text="💬 написать владельцу",
+                url=f"https://t.me/{OWNER_USERNAME}"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="🗑 очистить корзину",
+                callback_data="clear_cart"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="🛍 продолжить покупки",
+                callback_data="shop"
+            )
+        ]
+    ]
+
+    await callback.message.edit_text(
+        text,
+        reply_markup=InlineKeyboardMarkup(
+            inline_keyboard=buttons
+        ),
+        parse_mode="HTML"
+    )
+
+    await callback.answer()
+
+
+# =========================================================
+# ОЧИСТКА КОРЗИНЫ
+# =========================================================
+
+@dp.callback_query(F.data == "clear_cart")
+async def clear_cart(callback: CallbackQuery):
+
+    cursor.execute(
+        "DELETE FROM cart WHERE user_id = ?",
+        (callback.from_user.id,)
+    )
+
+    db.commit()
+
+    await callback.answer(
+        "корзина очищена.",
+        show_alert=True
+    )
+
+    await show_cart(callback)
+
+
+# =========================================================
+# АДМИН — ВХОД
+# =========================================================
+
+@dp.callback_query(F.data == "admin_login")
+async def admin_login(callback: CallbackQuery, state: FSMContext):
+
+    await callback.message.edit_text(
+        "🔐 <b>проверка администратора</b>\n\n"
+        "введи секретный пароль:",
+        parse_mode="HTML"
+    )
+
+    await state.set_state(
+        AdminLogin.waiting_password
+    )
+
+    await callback.answer()
+
+
+@dp.message(AdminLogin.waiting_password)
+async def check_password(
+    message: Message,
+    state: FSMContext
+):
+
+    if message.text == ADMIN_PASSWORD:
+
+        cursor.execute(
+            "INSERT OR IGNORE INTO admins (user_id) VALUES (?)",
+            (message.from_user.id,)
+        )
+
+        db.commit()
+
+        await state.clear()
+
+        await message.answer(
+            "✅ <b>доступ администратора подтверждён.</b>\n\n"
+            "теперь тебе доступна панель управления магазином.",
+            reply_markup=admin_menu(),
+            parse_mode="HTML"
+        )
+
+    else:
+
+        await message.answer(
+            "❌ неправильный пароль.\n\n"
+            "попробуй ещё раз."
+        )
+
+
+# =========================================================
+# АДМИН-МЕНЮ
+# =========================================================
+
+def admin_menu():
+
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text="➕ добавить товар",
+                    callback_data="add_product"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text="📦 мои товары",
+                    callback_data="admin_products"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text="🏠 магазин",
+                    callback_data="home"
+                )
+            ]
+        ]
+    )
+
+
+@dp.callback_query(F.data == "admin")
+async def admin_panel(callback: CallbackQuery):
+
+    if not is_admin(callback.from_user.id):
+        await callback.answer(
+            "у тебя нет доступа.",
+            show_alert=True
+        )
+        return
+
+    await callback.message.edit_text(
+        "⚙️ <b>панель администратора</b>\n\n"
+        "здесь можно управлять товарами магазина.",
+        reply_markup=admin_menu(),
+        parse_mode="HTML"
+    )
+
+    await callback.answer()
+
+
+# =========================================================
+# ДОБАВЛЕНИЕ ТОВАРА
+# =========================================================
+
+@dp.callback_query(F.data == "add_product")
+async def add_product_start(
+    callback: CallbackQuery,
+    state: FSMContext
+):
+
+    if not is_admin(callback.from_user.id):
+        await callback.answer(
+            "нет доступа.",
+            show_alert=True
+        )
+        return
+
+    await callback.message.edit_text(
+        "➕ <b>добавление товара</b>\n\n"
+        "отправь фотографию товара.",
+        parse_mode="HTML"
+    )
+
+    await state.set_state(
+        AddProduct.waiting_photo
+    )
+
+    await callback.answer()
+
+
+@dp.message(AddProduct.waiting_photo, F.photo)
+async def product_photo(
+    message: Message,
+    state: FSMContext
+):
+
+    photo_id = message.photo[-1].file_id
+
+    await state.update_data(
+        photo_id=photo_id
+    )
+
+    await message.answer(
+        "фотография сохранена.\n\n"
+        "теперь напиши <b>название товара</b>.",
+        parse_mode="HTML"
+    )
+
+    await state.set_state(
+        AddProduct.waiting_name
+    )
+
+
+@dp.message(AddProduct.waiting_name)
+async def product_name(
+    message: Message,
+    state: FSMContext
+):
+
+    await state.update_data(
+        name=message.text
+    )
+
+    await message.answer(
+        "теперь напиши <b>описание товара</b>.\n\n"
+        "если описание не нужно — напиши <code>-</code>.",
+        parse_mode="HTML"
+    )
+
+    await state.set_state(
+        AddProduct.waiting_description
+    )
+
+
+@dp.message(AddProduct.waiting_description)
+async def product_description(
+    message: Message,
+    state: FSMContext
+):
+
+    description = message.text
+
+    if description == "-":
+        description = ""
+
+    await state.update_data(
+        description=description
+    )
+
+    await message.answer(
+        "цена в ⭐ stars?\n\n"
+        "например: <code>150</code>",
+        parse_mode="HTML"
+    )
+
+    await state.set_state(
+        AddProduct.waiting_stars
+    )
+
+
+@dp.message(AddProduct.waiting_stars)
+async def product_stars(
+    message: Message,
+    state: FSMContext
+):
+
+    if not message.text.isdigit():
+
+        await message.answer(
+            "введи только число."
+        )
+        return
+
+    await state.update_data(
+        price_stars=int(message.text)
+    )
+
+    await message.answer(
+        "цена в гривнах?\n\n"
+        "например: <code>80</code>",
+        parse_mode="HTML"
+    )
+
+    await state.set_state(
+        AddProduct.waiting_uah
+    )
+
+
+@dp.message(AddProduct.waiting_uah)
+async def product_uah(
+    message: Message,
+    state: FSMContext
+):
+
+    if not message.text.isdigit():
+
+        await message.answer(
+            "введи только число."
+        )
+        return
+
+    await state.update_data(
+        price_uah=int(message.text)
+    )
+
+    await message.answer(
+        "сколько штук сейчас в наличии?\n\n"
+        "например: <code>5</code>",
+        parse_mode="HTML"
+    )
+
+    await state.set_state(
+        AddProduct.waiting_stock
+    )
+
+
+@dp.message(AddProduct.waiting_stock)
+async def product_stock(
+    message: Message,
+    state: FSMContext
+):
+
+    if not message.text.isdigit():
+
+        await message.answer(
+            "введи только число."
+        )
+        return
+
+    stock = int(message.text)
+
+    data = await state.get_data()
+
+    cursor.execute("""
+        INSERT INTO products
+        (name, description, price_stars,
+         price_uah, stock, photo_id)
+        VALUES (?, ?, ?, ?, ?, ?)
+    """, (
+        data["name"],
+        data["description"],
+        data["price_stars"],
+        data["price_uah"],
+        stock,
+        data["photo_id"]
+    ))
+
+    db.commit()
+
+    await state.clear()
+
+    await message.answer(
+        "✅ <b>товар добавлен.</b>\n\n"
+        f"название: {data['name']}\n"
+        f"⭐ {data['price_stars']}\n"
+        f"₴ {data['price_uah']}\n"
+        f"📦 наличие: {stock}",
+        reply_markup=admin_menu(),
+        parse_mode="HTML"
+    )
+
+
+# =========================================================
+# ТОВАРЫ АДМИНА
+# =========================================================
+
+@dp.callback_query(F.data == "admin_products")
+async def admin_products(callback: CallbackQuery):
+
+    if not is_admin(callback.from_user.id):
+        await callback.answer(
+            "нет доступа.",
+            show_alert=True
+        )
+        return
+
+    cursor.execute("""
+        SELECT id, name, stock
+        FROM products
+        ORDER BY id DESC
+    """)
+
+    products = cursor.fetchall()
+
+    if not products:
+
+        await callback.message.edit_text(
+            "📦 товаров пока нет.",
+            reply_markup=admin_menu()
+        )
+
+        await callback.answer()
+        return
+
+    buttons = []
+
+    for product_id, name, stock in products:
+
+        buttons.append([
+            InlineKeyboardButton(
+                text=f"{name} • {stock} шт.",
+                callback_data=f"manage:{product_id}"
+            )
+        ])
+
+    buttons.append([
+        InlineKeyboardButton(
+            text="◀️ назад",
+            callback_data="admin"
+        )
+    ])
+
+    await callback.message.edit_text(
+        "📦 <b>товары магазина</b>\n\n"
+        "выбери товар для управления:",
+        reply_markup=InlineKeyboardMarkup(
+            inline_keyboard=buttons
+        ),
+        parse_mode="HTML"
+    )
+
+    await callback.answer()
+
+
+# =========================================================
+# УПРАВЛЕНИЕ ТОВАРОМ
+# =========================================================
+
+@dp.callback_qu
